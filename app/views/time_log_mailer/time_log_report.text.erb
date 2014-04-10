@@ -1,0 +1,6 @@
+Time logging report
+
+Some of your employees logged a suspicious amount of time yesterday.
+<% @users.each do |user, hours, link| %>
+<%= user %> (<%= hours %>)
+<% end %>

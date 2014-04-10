@@ -1,0 +1,35 @@
+<h3>Time logging notifications</h3>
+
+<table>
+    <tr>
+        <td>Users to notify</td>
+        <td>
+            <select multiple="multiple" name="settings[recipients][]">
+              <% User.active.each do |user| %>
+                  <option
+                    value="<%= user.id %>"
+                    <%= if (Setting.plugin_time_logging_supervisor['recipients'] || []).include? user.id.to_s then 'selected="selected"' else '' end %>
+                  >
+                      <%= user %>
+                  </option>
+              <% end %>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Min. logged time
+        </td>
+        <td>
+            <input type="text" value="<%= settings['min_time'] %>" name="settings[min_time]"><br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Max. logged time
+        </td>
+        <td>
+            <input type="text" value="<%= settings['max_time'] %>" name="settings[max_time]">
+        </td>
+    </tr>
+</table>

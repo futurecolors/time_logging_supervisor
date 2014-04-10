@@ -1,0 +1,13 @@
+<h1>Time logging report</h1>
+<p>
+    Some of your employees logged a suspicious amount of time yesterday.
+</p>
+<table>
+    <% @users.each do |user, hours, link| %>
+    <tr>
+        <td><%= user %></td>
+        <td><%= hours %></td>
+        <td><a href="<%= link %>">entries</a></td>
+    </tr>
+    <% end %>
+</table>

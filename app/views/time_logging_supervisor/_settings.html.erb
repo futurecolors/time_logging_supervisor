@@ -2,7 +2,7 @@
 
 <table>
     <tr>
-        <td>Users to notify</td>
+        <th>Users to notify</th>
         <td>
             <select multiple="multiple" name="settings[recipients][]">
               <% User.active.each do |user| %>
@@ -17,19 +17,36 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <th>
             Min. logged time
-        </td>
+        </th>
         <td>
             <input type="text" value="<%= settings['min_time'] %>" name="settings[min_time]"><br>
         </td>
     </tr>
     <tr>
-        <td>
+        <th>
             Max. logged time
-        </td>
+        </th>
         <td>
             <input type="text" value="<%= settings['max_time'] %>" name="settings[max_time]">
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Roles to report zero logged time for
+        </th>
+        <td>
+            <select multiple="multiple" name="settings[roles][]">
+              <% Role.all.each do |role| %>
+                  <option
+                    value="<%= role.id %>"
+                    <%= if (Setting.plugin_time_logging_supervisor['roles'] || []).include? role.id.to_s then 'selected="selected"' else '' end %>
+                  >
+                      <%= role.name %>
+                  </option>
+              <% end %>
+            </select>
         </td>
     </tr>
 </table>

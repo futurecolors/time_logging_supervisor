@@ -6,7 +6,7 @@
     <% @users.each do |user, hours, link| %>
     <tr>
         <td><%= user %></td>
-        <td><%= hours %></td>
+        <td><%= hours.round(2) %></td>
         <td><a href="<%= link %>">entries</a></td>
     </tr>
     <% end %>

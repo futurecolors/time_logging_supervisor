@@ -10,11 +10,13 @@ namespace :redmine do
     hours_data = all_user_ids.inject({}) {|h, v| h.merge({v => 0})}.merge(hours_data)
 
     if !hours_data.empty? and settings['recipients']
-      users = User.where(id: hours_data.keys).index_by(&:id)
-      TimeLogMailer.time_log_report(
-        User.where(id: settings['recipients']).pluck(:mail),
-        hours_data.map {|user_id, hours| [users[user_id], hours]}
-      ).deliver
+      users = User.active.where(id: hours_data.keys).index_by(&:id)
+      Mailer.with_synched_deliveries do
+        TimeLogMailer.time_log_report(
+          User.where(id: settings['recipients']).pluck(:mail),
+          hours_data.map {|user_id, hours| [users[user_id], hours]}.select {|user, hours| user}
+        ).deliver
+      end
     end
   end
 end

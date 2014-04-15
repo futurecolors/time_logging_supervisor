@@ -7,6 +7,6 @@ class TimeLogMailer < Mailer
       query = "?f[]=spent_on&op[spent_on]=%3D&v[spent_on][]=#{Date.yesterday}&f[]=user_id&op[user_id]=%3D&v[user_id][]=#{user.id}"
       @users << [user, hours, url + query]
     end
-    mail(to: to, subject: 'Time logging report')
+    mail(to: to, subject: "Time logging report for #{Date.yesterday.strftime '%-d %b %Y'}")
   end
 end
